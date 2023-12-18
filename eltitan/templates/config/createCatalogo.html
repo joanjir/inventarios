@@ -1,0 +1,55 @@
+{% extends 'base/form.html' %}
+{% load static %}
+{% csrf_token %}
+{% load crispy_forms_tags %}
+
+{% block content-header %}
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">{{ title }} <small></small></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">
+            <a href="">Inicio</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'listCatalogo' %}">{{ entity }}</a>
+          </li>
+
+          <li class="breadcrumb-item">{{ title }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content-header %}
+{% block content %}
+  <form method="post" action="." enctype="multipart/form-data">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">
+          {% if action == 'add' %}
+            <i class="fas fa-plus"></i>
+          {% else %}
+            <i class="fas fa-edit"></i>
+          {% endif %}
+
+          {{ title }}
+        </h3>
+      </div>
+      <div class="card-body">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="{{ action }}" />
+        {{ form|crispy }}
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary btn-flat"><i class="fas fa-save"></i> Guardar registro</button>
+        <a href="{% url 'listCatalogo' %}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>
+      </div>
+    </div>
+  </form>
+  <script></script>
+{% endblock %}

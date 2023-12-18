@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block body %}
+    <div class="wrapper">
+        <!-- Header -->
+        {% include 'base/header.html' %}
+        <!-- Sidebar -->
+        {% include 'base/sidebar.html' %}
+        <!-- Content -->
+
+       
+        <div class="content-wrapper">
+            {% block content-header %}
+        
+            {% endblock content-header %}
+            <div class="content">
+                <div class="container-fluid">
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        {% include 'base/footer.html' %}
+    </div>
+    <!-- Block javascript -->
+    {% block javascript %}
+
+    {% endblock %}
+    
+{% endblock %}
