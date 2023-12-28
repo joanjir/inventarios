@@ -45,10 +45,10 @@
         <input type="hidden" name="action" value="{{ action }}" />
         <div class="row">
           <div class="col-md-6">
-            {{ form.name|as_crispy_field  }}
+            {{ form.nombre|as_crispy_field  }}
           </div>
           <div class="col-md-6">
-            {{ form.desc|as_crispy_field  }}
+            {{ form.prefijo|as_crispy_field  }}
           </div>
 
           <div class="col-md-6">
@@ -58,7 +58,7 @@
         </div>      </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-primary btn-flat"><i class="fas fa-save"></i> Guardar registro</button>
-        <a href="{% url 'listCatalogo' %}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>
+        <a href="{% url 'listUnidadMedida' %}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>
       </div>
     </div>
   </form>

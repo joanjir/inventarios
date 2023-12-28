@@ -1,0 +1,213 @@
+{% extends 'base/list.html' %}
+{% load static %}
+{% block head_list %}
+  <link href="{% static 'lib/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet" />
+  <script src="{% static 'lib/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+  <link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet" />
+  <script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+  <script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+
+  <script src="{% static 'lib/moment-2.25.3/moment-with-locales.js' %}"></script>
+  <script src="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js' %}"></script>
+  <link href="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+  <link href="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" />
+  <script src="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+  <script src="{% static 'js/compra.js' %}"></script>
+{% endblock %}
+
+{% block content-header %}
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Agregar Compra <small></small></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">
+            <a href="">Inicio</a>
+          </li>
+
+          <li class="breadcrumb-item">
+            <a href="{% url "list_compra" %}">Listado de compras</a>
+          </li>
+
+          <li class="breadcrumb-item">Agregar Compra</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content-header %}
+
+{% block content %}
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editForm">
+          <div class="form-group">
+            <label for="editQty"> Cantidad de productos: </label>
+            <input type="number" id="editQty" class="form-control" placeholder="Ingrese la cantidad">
+          </div>
+          <div class="form-group">
+            <label for="editPrice"> Precio de compra: </label>
+            <input type="number" id="editPrice" class="form-control" placeholder="Ingrese el precio">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="saveBtn">Aceptar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+ </div>
+ 
+  <form method="post" action="add">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title ">
+            <i class="fas fa-plus"></i> Agregar compra
+          
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> Datos de la factura</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Proveedor:</label>
+                      <div class="input-group"></div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>No. Factura:</label>
+                      <input type="text" id="numFactura" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Fecha factura:</label>
+                      <input type="date" id="fechaFactura" class="form-control">
+                   </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Fecha de compra:</label>
+                      <input type="date" id="fechaCompra" class="form-control">
+                   </div>
+                  </div>
+
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-boxes"></i> Detalle de productos por comprar</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Buscar producto:</label>
+                      <div class="input-group">
+                        <select class="form-control select2" id="productSearch" name="search"></select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Cantidad de productos:</label>
+                        <div class="input-icon">
+                            <input type="number" id ='productQuantity' class="form-control" min="0" placeholder="Ingresa la cantidad" />
+                        </div>
+                    </div>
+                 </div>
+                 
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Precio de compra:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" id="productPrice" class="form-control" min="0" step="0.01" placeholder="Ingresa el precio" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2" style=" padding-top:32px; ">
+                    <button type="button" id="agregar" class="btn btn-primary btn-flat"><i class="fas fa-cart-plus fa-lg"></i> Agregar</button>
+                  </div>
+                </div>
+                <hr />
+                <div class="flex-container" style="display: flex; justify-content: space-between;">
+                  <button type="button" class="btn btn-danger btn-xs btn-flat btnRemoveAll">
+                    <i class="fas fa-trash"></i> Eliminar todos los productos
+                  </button>
+                  <div style="display: flex;">
+                    <b>Total pago de la compra: </b>
+                    <p id="total" class="ml-1"> 0.0</p>
+                    <input type="hidden" id="totalInput" name="total">
+                  </div>
+                 </div>
+                 
+                <hr />
+                <table class="table table-bordered" id="tblProducts">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio de compra</th>
+                      <th>Importe</th>
+                      <th>Opciones</th>
+
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary btn-flat"><i class="fas fa-save"></i> Guardar registro</button>
+        <a href="{% url "list_compra" %}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>
+      </div>
+    </div>
+  </form>
+
+
+
+  {% endblock %}

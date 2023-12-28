@@ -16,7 +16,7 @@
             <a href="">Inicio</a>
           </li>
           <li class="breadcrumb-item">
-            <a href="{% url 'listCatalogo' %}">{{ entity }}</a>
+            <a href="{% url 'listProducto' %}">{{ entity }}</a>
           </li>
 
           <li class="breadcrumb-item">{{ title }}</li>
@@ -26,6 +26,7 @@
   </div>
 </div>
 {% endblock content-header %}
+
 {% block content %}
   <form method="post" action="." enctype="multipart/form-data">
     <div class="card card-primary">
@@ -44,21 +45,22 @@
         {% csrf_token %}
         <input type="hidden" name="action" value="{{ action }}" />
         <div class="row">
+          <div class="col-md-6">{{ form.name|as_crispy_field }}</div>
+          <div class="col-md-6">{{ form.cat|as_crispy_field }}</div>
           <div class="col-md-6">
-            {{ form.name|as_crispy_field  }}
+            {{ form.unidad_medida|as_crispy_field  }}
           </div>
-          <div class="col-md-6">
-            {{ form.desc|as_crispy_field  }}
-          </div>
-
+          
+          <div class="col-md-6">{{ form.precio_venta|as_crispy_field }}</div>
           <div class="col-md-6">
             {{ form.activo|as_crispy_field  }}
           </div>
           <!-- Repite el patrón para los demás campos -->
-        </div>      </div>
+        </div>
+      </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-primary btn-flat"><i class="fas fa-save"></i> Guardar registro</button>
-        <a href="{% url 'listCatalogo' %}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>
+        <a href="{% url 'listProducto' %}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>
       </div>
     </div>
   </form>

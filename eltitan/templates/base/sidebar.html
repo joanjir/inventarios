@@ -1,64 +1,89 @@
 {% load static %}
 <aside class="main-sidebar sidebar-light-primary elevation-4">
-    <a href="" class="brand-link">
-        <img src="{% static 'img/logo.jpg' %}"
-             alt="AdminLTE Logo"
-             class="brand-image ">
-        <span class="brand-text font-weight-light">El Titán</span>
-    </a>
-    <div class="sidebar">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="" class="img-circle" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block"></a>
-            </div>
-        </div>
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-header">Inventario</li>
-                <li class="nav-item">
-                    <a href="{% url "listCatalogo" %}" class="nav-link">
-                        <i class="nav-icon fas fa-list-alt"></i>
-                        <p>
-                            Categorías
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-boxes"></i>
-                        <p>
-                            Productos
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-shopping-bag"></i>
-                        <p>
-                            Compras
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-shopping-cart"></i>
-                        <p>
-                            Ventas
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-chart-bar"></i>
-                        <p>
-                            Reporte de Ventas
-                        </p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+  <a href="" class="brand-link">
+    <img src="{% static 'img/logo.jpg' %}" alt="AdminLTE Logo" class="brand-image" />
+    <span class="brand-text font-weight-light">El Titán</span>
+  </a>
+  <div class="sidebar">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="" class="img-circle" alt="User Image" />
+      </div>
+      <div class="info">
+        <a href="#" class="d-block"></a>
+      </div>
     </div>
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header">Inventario</li>
+        <li class="nav-item">
+          <a href="" class="nav-link">
+            <i class="nav-icon fas fa-boxes fa-lg"></i>
+            <p>Almacenes</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'listCatalogo' %}" class="nav-link">
+            <i class="nav-icon fas fa-list-alt fa-lg"></i>
+            <p>Categorías</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'listUnidadMedida' %}" class="nav-link">
+            <i class="fas fa-ruler fa-lg"></i>
+            <p>Unidad de medida</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tags fa-lg"></i>
+            <p>
+              Artículos
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'listProducto' %}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Productos</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Servicios</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-header">Ver</li>
+
+        <li class="nav-item">
+          <a href="{% url 'list_compra' %}" class="nav-link">
+            <i class="nav-icon fas fa-shopping-bag fa-lg"></i>
+            <p>Compras</p>
+          </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-cash-register fa-lg"></i>
+              <p>Caja</p>
+            </a>
+          </li>
+        <li class="nav-item">
+          <a href="" class="nav-link">
+            <i class="nav-icon fas fa-shopping-cart fa-lg"></i>
+            <p>Ventas</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link">
+            <i class="nav-icon fas fa-chart-bar fa-lg"></i>
+            <p>Reporte de Ventas</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </aside>

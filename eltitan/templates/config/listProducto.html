@@ -1,0 +1,68 @@
+{% extends 'base/list.html' %}
+{% load static %}
+{% block head_list %}
+<script src="{% static 'js/product.js' %}"></script>
+
+{% endblock %}
+
+{% block title_list %}
+  Lista de Productos
+{% endblock %}
+
+{% block buttons_list %}
+  <a href="{% url "createProducto" %}" class="btn btn-primary btn-flat mr-3"><i class="fas fa-plus"></i> Nuevo registro</a>
+{% endblock %}
+
+{% block columns %}
+  <tr>
+    <th scope="col" style="width: 6%;">Codigo</th>
+    <th scope="col" style="width: 20%;">Nombre</th>
+    <th scope="col" style="width: 10%;">Categoría</th>
+    <th scope="col" style="width: 10%;">Cantidad disponible</th>
+    <th scope="col" style="width: 10%;">Precio de venta</th>
+    <th scope="col" style="width: 10%;">Inversión</th>
+    <th scope="col" style="width: 10%;">Ingreso</th>
+    <th scope="col" style="width: 10%;">Ganancia</th>
+    <th scope="col" style="width: 10%;">Unidad de medida</th>
+    <th scope="col" style="width: 10%;">Estado</th>
+    <th scope="col" style="width: 14%;">Opciones</th>
+  </tr>
+{% endblock %}
+
+{% block rows %}
+  {% for product in prods %}
+    <tr>
+        <td>{{ product.code }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.cat }}</td>
+        
+        <td>
+            {% if product.cant_dis == 0 %}
+            <h5 class="pl-4"><span class="badge badge-pill badge-danger text-dark"> {{ product.cant_dis }} 
+            </span></h5>
+            {% else %}
+            <h5 class="pl-3"><span class="badge badge-pill badge-info text-dark "> {{ product.cant_dis }} </span></h5>
+
+
+            {% endif %}
+        </td>
+        <td>{{ product.precio_venta }}</td>
+
+        <td>{{ product.inversion }}</td>
+        <td>{{ product.ingresos }}</td>
+        <td>{{ product.ganancia }}</td>
+        <td>{{ product.unidad_medida }}</td>
+        <td>{{ product.activo|yesno:"Activo,Inactivo" }}</td>
+
+      <td scope="col" style="width: 10%;">
+        <div class="row">
+          <div class="col-sm-6 col-12">
+            <a href="{% url "editProducto" product.pk %}" class="edit-btn rounded btn btn-warning btn-flat btn-sm" title="Editar Registro" data-in-processed=""><i class="fas fa-edit"></i></a>
+          </div>
+
+          
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+{% endblock %}

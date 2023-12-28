@@ -2,12 +2,14 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 from django.forms import ModelForm
-from .models import Categoria, Producto, Compra, Venta
+from .models import Categoria, Producto, Compra, Venta, UnidadMedida, DetalleCompra
 
 admin.site.register(Categoria)
 admin.site.register(Compra)
-admin.site.register(Venta)
 
+admin.site.register(Venta)
+admin.site.register(UnidadMedida)
+admin.site.register(DetalleCompra)
 class ProductoAdminForm(ModelForm):
     class Meta:
         model = Producto
