@@ -3,29 +3,29 @@
 {% csrf_token %}
 {% load crispy_forms_tags %}
 
-{% block content-header %}
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6">
-        <h1 class="m-0 text-dark">{{ title }} <small></small></h1>
-      </div>
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item">
-            <a href="">Inicio</a>
-          </li>
-          <li class="breadcrumb-item">
-            <a href="{% url 'listCatalogo' %}">{{ entity }}</a>
-          </li>
+{% block contentheader %}
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">{{ title }} <small></small></h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a href="">Inicio</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="{% url 'listCatalogo' %}">{{ entity }}</a>
+            </li>
 
-          <li class="breadcrumb-item">{{ title }}</li>
-        </ol>
+            <li class="breadcrumb-item">{{ title }}</li>
+          </ol>
+        </div>
       </div>
     </div>
   </div>
-</div>
-{% endblock content-header %}
+{% endblock %}
 {% block content %}
   <form method="post" action="." enctype="multipart/form-data">
     <div class="card card-primary">
@@ -44,18 +44,12 @@
         {% csrf_token %}
         <input type="hidden" name="action" value="{{ action }}" />
         <div class="row">
-          <div class="col-md-6">
-            {{ form.name|as_crispy_field  }}
-          </div>
-          <div class="col-md-6">
-            {{ form.desc|as_crispy_field  }}
-          </div>
-
-          <div class="col-md-6">
-            {{ form.activo|as_crispy_field  }}
-          </div>
+          <div class="col-md-6">{{ form.name|as_crispy_field }}</div>
+          <div class="col-md-6">{{ form.desc|as_crispy_field }}</div>
+          <div class="col-md-6">{{ form.activo|as_crispy_field }}</div>
           <!-- Repite el patrón para los demás campos -->
-        </div>      </div>
+        </div>
+      </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-primary btn-flat"><i class="fas fa-save"></i> Guardar registro</button>
         <a href="{% url 'listCatalogo' %}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>

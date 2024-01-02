@@ -3,7 +3,7 @@
 {% csrf_token %}
 {% load crispy_forms_tags %}
 
-{% block content-header %}
+{% block contentheader %}
 <div class="content-header">
   <div class="container-fluid">
     <div class="row">
@@ -25,7 +25,7 @@
     </div>
   </div>
 </div>
-{% endblock content-header %}
+{% endblock contentheader %}
 
 {% block content %}
   <form method="post" action="." enctype="multipart/form-data">

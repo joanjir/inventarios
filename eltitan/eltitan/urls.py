@@ -16,14 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from inventario.views import views
+from inventario.views import dashboard
+from django.conf import settings
+from django.conf.urls.static import static
+import inventario.config.registration.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('views/', views),
+    path('views/', dashboard, name='dashboard'),
     
-    path('inventarios/', include('inventario.urls')),
+    path('', include('inventario.urls')),
+    path('login/', inventario.config.registration.views.login_view , name='login'),
+    path('logout/', inventario.config.registration.views.logout_view , name='logout'),
+
 
     
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

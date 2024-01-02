@@ -15,14 +15,53 @@ from django.shortcuts import redirect
 # Create your models here.
 
 class Almacen(models.Model):
-   nombre = models.CharField(max_length=200)
-   ubicacion = models.CharField(max_length=200)
-   responsable = models.CharField(max_length=200)
-   activo = models.BooleanField(default=True)
+ nombre = models.CharField(max_length=200, verbose_name='Nombre')
+ ubicacion = models.CharField(max_length=200, verbose_name='Ubicación')
+ activo = models.BooleanField(default=True, verbose_name='Activo')
+ central = models.BooleanField(default=False, verbose_name='Central')
 
-   class Meta:
-       verbose_name = 'Almacen'
-       verbose_name_plural = 'Almacenes'
+ def __str__(self):
+     return self.nombre
+
+
+
+
+class PuntoVenta(models.Model):
+  nombre = models.CharField(max_length=200, verbose_name='Nombre')
+  ubicacion = models.CharField(max_length=200, verbose_name='Ubicación')
+  activo = models.BooleanField(default=True, verbose_name='Activo')
+
+  def __str__(self):
+      return self.nombre
+
+class Empleado(models.Model):
+    TIPO_LUGAR_CHOICES = [
+        ('Almacen', 'Almacén'),
+        ('PuntoVenta', 'Punto de Venta')
+    ]
+
+    nombre = models.CharField(max_length=200, verbose_name='Nombre')
+    apellido = models.CharField(max_length=200, verbose_name='Apellidos')
+    dni = models.CharField(max_length=11, unique=True, verbose_name='DNI')
+    telefono = models.CharField(max_length=15, verbose_name='Teléfono')
+    direccion = models.TextField(verbose_name='Dirección')
+    puesto = models.ForeignKey('Puesto', on_delete=models.CASCADE, verbose_name='Puesto')
+    fecha_contratacion = models.DateField(verbose_name='Fecha de contratación')
+    tipo_lugar = models.CharField(max_length=10, choices=TIPO_LUGAR_CHOICES, null=True)
+
+    punto_venta = models.OneToOneField('PuntoVenta', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Punto de Venta')
+    almacenes = models.ManyToManyField('Almacen', verbose_name='Almacenes')
+    imagen = models.ImageField(upload_to='empleados/', verbose_name='Imagen', null=True, blank=True)
+
+    def __str__(self):
+        return self.nombre
+
+class Puesto(models.Model):
+  nombre = models.CharField(max_length=200)
+
+  def __str__(self):
+      return self.nombre
+
        
 class UnidadMedida(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
@@ -31,11 +70,10 @@ class UnidadMedida(models.Model):
     
 
     def __str__(self):
-        return f'{self.prefijo} {self.nombre}'
-    
-    
+        return f'{self.prefijo} | {self.nombre}'
     class Meta:
         verbose_name_plural = "Unidades de medida" 
+
 class Categoria(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nombre', unique=True)
     desc = models.CharField(max_length=500, null=True, blank=True, verbose_name='Descripción')
@@ -77,8 +115,29 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.name
-    
-    
+ 
+class DetalleMovimiento(models.Model):
+    cantidad = models.IntegerField(verbose_name='Cantidad')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.producto.name} - {self.cantidad}'   
+class Movimiento(models.Model):
+    origen = models.ForeignKey(Almacen, related_name='transacciones_origen', on_delete=models.CASCADE)
+    destino = models.ForeignKey(Almacen, related_name='transacciones_destino', on_delete=models.CASCADE, null=True)
+    punto_venta = models.ForeignKey(PuntoVenta, related_name='transacciones_punto_venta', on_delete=models.CASCADE, null=True)
+    tipo_destino = models.CharField(max_length=10, choices=[('Almacen', 'Almacen'), ('PuntoVenta', 'PuntoVenta')])
+    detalles = models.ManyToManyField(DetalleMovimiento)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        if self.tipo_destino == 'PuntoVenta':
+            return f'{self.detalles.first().producto.name} - {self.origen.nombre} -> {self.punto_venta.nombre}'
+        else:
+            return f'{self.detalles.first().producto.name} - {self.origen.nombre} -> {self.destino.nombre}'
+
+
+   
       
 class Compra(models.Model):
     fechaCompra = models.DateField(verbose_name="Fecha de compra", auto_now=False, auto_now_add=False)

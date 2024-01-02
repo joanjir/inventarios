@@ -21,7 +21,7 @@
         <script src="{% static 'lib/adminlte-3.0.4/js/adminlte.min.js' %}"></script>
         <!-- Sweetalert2 -->
         <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'lib/sweetalert2-9.10.0/sweetalert2.min.css' %}">
+
     
         <!-- Jquery Confirm -->
         <link rel="stylesheet" href="{% static 'lib/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}">
@@ -30,11 +30,19 @@
         <!-- Toastr -->
         <script src="{% static 'lib/toastr/toastr.min.js' %}"></script>
         <link rel="stylesheet" href="{% static 'lib/toastr/toastr.min.css' %}" />
+        
+        <script src="{% static 'lib/intl-tel-input-18.3.3/js/intlTelInput.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'lib/intl-tel-input-18.3.3/css/intlTelInput.min.css' %}" />
+
+
         <style>
             .toast-message {
             color: black;
             }
         </style>
+        <script>
+            
+        </script>
 
         <link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
@@ -48,7 +56,7 @@
 {% block body %}
     <body class="d-flex flex-column h-100">
 
-   
+        <input type="tel" id="phone-input" name="phone">   
 
     
 

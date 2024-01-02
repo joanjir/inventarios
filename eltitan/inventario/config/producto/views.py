@@ -6,6 +6,8 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse, HttpResponseForbidden
 from django.urls import reverse
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -14,13 +16,13 @@ from inventario.config.producto.forms import ProductForm
 
 # Create your views here.
 
-
+@login_required(login_url='login', redirect_field_name='login')
 def listProducto(request):
     prod= Producto.objects.all()
     title = 'Listado de productos'
     return render(request,'config/listProducto.html', {'prods' : prod, 'title': title})
 
-
+@login_required(login_url='login', redirect_field_name='login')
 def createProducto(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -41,7 +43,7 @@ def createProducto(request):
 
 
 
-
+@login_required(login_url='login', redirect_field_name='login')
 def editProducto(request, pk):
     product = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':

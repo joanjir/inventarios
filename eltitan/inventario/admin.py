@@ -2,14 +2,19 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 from django.forms import ModelForm
-from .models import Categoria, Producto, Compra, Venta, UnidadMedida, DetalleCompra
+from .models import Almacen, PuntoVenta, Empleado, Puesto, UnidadMedida, Categoria, Producto, DetalleMovimiento, Movimiento, Compra, DetalleCompra, Venta
 
-admin.site.register(Categoria)
-admin.site.register(Compra)
-
-admin.site.register(Venta)
+admin.site.register(Almacen)
+admin.site.register(PuntoVenta)
+admin.site.register(Empleado)
+admin.site.register(Puesto)
 admin.site.register(UnidadMedida)
+admin.site.register(Categoria)
+admin.site.register(DetalleMovimiento)
+admin.site.register(Movimiento)
+admin.site.register(Compra)
 admin.site.register(DetalleCompra)
+admin.site.register(Venta)
 class ProductoAdminForm(ModelForm):
     class Meta:
         model = Producto
@@ -33,4 +38,7 @@ class ProductoAdmin(admin.ModelAdmin):
     editar_eliminar.short_description = 'Acciones'
 
 admin.site.register(Producto, ProductoAdmin)
+
+
+
 

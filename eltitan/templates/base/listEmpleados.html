@@ -1,0 +1,72 @@
+{% extends 'base/body.html' %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}" />
+  <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+  <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'js/empleado.js' %}"></script>
+  {% block head_list %}
+
+  {% endblock %}
+{% endblock %}
+
+{% block contentheader %}
+<div class="contentheader">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">{{ title }} <small></small></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">
+            <a href="">Inicio</a>
+          </li>
+
+          <li class="breadcrumb-item">{{ title }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock contentheader %}
+
+{% block content %}
+  {% block filter %}
+
+  {% endblock %}
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">
+        <i class="fas fa-list"></i>
+        {% block title_list %}
+
+        {% endblock %}
+      </h3>
+      <div class="card-tools">
+        <ul class="nav nav-pills ml-auto">
+          <li class="nav-item">
+            {% block buttons_list %}
+
+            {% endblock %}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-body">
+      {% block card %}
+
+      {% endblock %}
+    </div>
+    <div class="card-footer">
+      {% block cardfooter %}
+
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

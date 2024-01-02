@@ -3,7 +3,7 @@
 {% csrf_token %}
 {% load crispy_forms_tags %}
 
-{% block content-header %}
+{% block contentheader %}
 <div class="content-header">
   <div class="container-fluid">
     <div class="row">
@@ -16,7 +16,7 @@
             <a href="">Inicio</a>
           </li>
           <li class="breadcrumb-item">
-            <a href="{% url 'listCatalogo' %}">{{ entity }}</a>
+            <a href="{% url 'listUnidadMedida' %}">{{ entity }}</a>
           </li>
 
           <li class="breadcrumb-item">{{ title }}</li>
@@ -25,7 +25,7 @@
     </div>
   </div>
 </div>
-{% endblock content-header %}
+{% endblock contentheader %}
 {% block content %}
   <form method="post" action="." enctype="multipart/form-data">
     <div class="card card-primary">

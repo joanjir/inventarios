@@ -1,0 +1,155 @@
+{% extends 'base/listEmpleados.html' %}
+{% load static %}
+{% block filter %}
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-filter"></i> Filtrar empleados</h3>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+      </div>
+    </div>
+
+    <div class="card-body" style="display: block;">
+      <form class="form-inline" method="GET" action="{% url 'empleado_list' %}">
+        <div class="row">
+          <div class="col-lg-3">
+            <!-- Campo de búsqueda: Nombre -->
+            <div class="form-group">
+              <label for="nombre">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="{{ request.GET.nombre }}" />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <!-- Campo de búsqueda: Apellido -->
+            <div class="form-group">
+              <label for="apellido">Apellido:</label>
+              <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" value="{{ request.GET.apellido }}" />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <!-- Campo de búsqueda: DNI -->
+            <div class="form-group">
+              <label for="dni">DNI:</label>
+              <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" value="{{ request.GET.dni }}" />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <!-- Botones -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary mr-1" title="Filtrar"><i class="fas fa-filter"></i></button>
+              <a href="{% url 'empleado_list' %}" class="btn btn-secondary" title="Restablecer"><i class="fas fa-sync"></i></a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block head_list %}
+  <!-- Agrega estilos personalizados -->
+  <style>
+    .card {
+      margin-bottom: 20px;
+    }
+  </style>
+{% endblock %}
+
+{% block title_list %}
+  Lista de empleados
+{% endblock %}
+
+{% block buttons_list %}
+  <a href="{% url 'empleado_create' %}" class="btn btn-primary btn-flat mr-3"><i class="fas fa-plus"></i> Nuevo registro</a>
+{% endblock %}
+
+{% block card %}
+  <div class="row p-3 m-1">
+    {% if page_obj %}
+      {% for empleado in page_obj %}
+        <div class="col-12 col-sm-6 col-md-6 d-flex align-items-stretch flex-column">
+          <div class="card bg-light d-flex flex-fill">
+            <div class="card-header text-muted border-bottom-0">
+              <h5 class="card-title">Empleado: {{ empleado.nombre }} {{ empleado.apellido }}</h5>
+            </div>
+            <div class="card-body pt-0">
+              <div class="row">
+                <div class="col-7">
+                  <ul class="ml-4 mb-0 fa-ul text-muted">
+                    <li class="small">
+                      <span class="fa-li"><i class="fas fa-phone"></i></span> Celular: {{ empleado.telefono }}
+                    </li>
+                    <li class="small">
+                      <span class="fa-li"><i class="fas fa-building"></i></span> Direccion: {{ empleado.direccion }}
+                    </li>
+                    <li class="small">
+                      <span class="fa-li"><i class="fa fa-id-card" aria-hidden="true"></i></span> DNI: {{ empleado.dni }}
+                    </li>
+                    <li class="small">
+                      {% if empleado.tipo_lugar == 'PuntoVenta' %}
+                        <span class="fa-li"><i class="fas fa-cash-register"></i></span> Punto de Venta: {{ empleado.punto_venta }}
+                      {% elif empleado.tipo_lugar == 'Almacen' %}
+                        <span class="fa-li"><i class="fas fa-warehouse"></i></span> Almacenes:{% for almacen in empleado.almacenes.all %}
+                          {{ almacen }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </li>
+                    <li class="small">
+                      <span class="fa-li"><i class="fa fa-calendar" aria-hidden="true"></i></span> Fecha Contratacion: {{ empleado.fecha_contratacion }}
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-5 text-center">
+                  <img src="{{ empleado.imagen.url }}" alt="user-avatar" class="img-circle img-fluid" width="150px" />
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="text-right">
+                <button data-toggle="modal" data-target="#modalEditarEmpleado" class="btn btn-warning btn-sm editarEmpleado" id="{{ empleado.id }}"><i class="fas fa-edit"></i>&nbsp; Editar</button>
+                <button class="btn btn-sm btn-danger eliminarEmpleado" data-id="{{ empleado.id }}"><i class="fa fa-times"></i>&nbsp; Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-lg-12 col-sm-12 col-md-12 d-flex align-items-stretch flex-column">
+        <p class="text-center">Ningún dato disponible.</p>
+      </div>
+    {% endif %}
+  </div>
+
+ 
+{% endblock %}
+
+{% block cardfooter %}
+ <!-- Agrega la paginación -->
+ {% if page_obj %}
+ <div class="pagination justify-content-center">
+   <ul class="pagination">
+     {% if page_obj.has_previous %}
+       <li class="page-item">
+         <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+       </li>
+     {% endif %}
+     {% for num in page_obj.paginator.page_range %}
+       {% if page_obj.number == num %}
+         <li class="page-item active">
+           <span class="page-link">{{ num }}</span>
+         </li>
+       {% else %}
+         <li class="page-item">
+           <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+         </li>
+       {% endif %}
+     {% endfor %}
+     {% if page_obj.has_next %}
+       <li class="page-item">
+         <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+       </li>
+     {% endif %}
+   </ul>
+ </div>
+{% endif %}
+{% endblock %}

@@ -4,18 +4,19 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse, HttpResponseForbidden
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from inventario.models import UnidadMedida
 from inventario.config.unidmed.forms import UnidadMForm
 
-
+@login_required(login_url='login', redirect_field_name='login')
 def listUnidadMedida(request):
     uns= UnidadMedida.objects.all()
     title = 'Unidades de medida'
     return render(request,'config/listUnidMed.html', {'uns' : uns, 'title': title})
 
 
-
+@login_required(login_url='login', redirect_field_name='login')
 def createUnidadMedida(request):
     if request.method == 'POST':
         form = UnidadMForm(request.POST)

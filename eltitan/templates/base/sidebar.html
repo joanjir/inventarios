@@ -15,11 +15,48 @@
     </div>
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header">Administraciones</li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog fa-lg"></i>
+            <p>
+              Configuraciones
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'empleado_list' %}" class="nav-link">
+                <i class="fas fa-users nav-icon"></i>
+                <p>Empleados</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url "list_almacen" %}" class="nav-link">
+                <i class="fas fa-warehouse nav-icon"></i>
+                <p>Almacenes</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url "list_puntvemt" %}" class="nav-link">
+                <i class="fas fa-store nav-icon"></i>
+                <p>Puntos de Ventas</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'listUnidadMedida' %}" class="nav-link">
+                <i class="fas fa-ruler fa-lg"></i>
+                <p>Unidad de medidas</p>
+              </a>
+            </li>
+          </ul>
+        </li>
         <li class="nav-header">Inventario</li>
         <li class="nav-item">
           <a href="" class="nav-link">
             <i class="nav-icon fas fa-boxes fa-lg"></i>
-            <p>Almacenes</p>
+            <p>Inventario</p>
           </a>
         </li>
         <li class="nav-item">
@@ -28,12 +65,7 @@
             <p>Categorías</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{% url 'listUnidadMedida' %}" class="nav-link">
-            <i class="fas fa-ruler fa-lg"></i>
-            <p>Unidad de medida</p>
-          </a>
-        </li>
+        
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-tags fa-lg"></i>
@@ -45,13 +77,13 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{% url 'listProducto' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-box nav-icon"></i>
                 <p>Productos</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-cogs nav-icon"></i>
                 <p>Servicios</p>
               </a>
             </li>
@@ -66,11 +98,11 @@
           </a>
         </li>
         <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="nav-icon fas fa-cash-register fa-lg"></i>
-              <p>Caja</p>
-            </a>
-          </li>
+          <a href="" class="nav-link">
+            <i class="nav-icon fas fa-cash-register fa-lg"></i>
+            <p>Caja</p>
+          </a>
+        </li>
         <li class="nav-item">
           <a href="" class="nav-link">
             <i class="nav-icon fas fa-shopping-cart fa-lg"></i>
