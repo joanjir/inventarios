@@ -19,10 +19,8 @@
     <th scope="col" style="width: 20%;">Nombre</th>
     <th scope="col" style="width: 10%;">Categoría</th>
     <th scope="col" style="width: 10%;">Cantidad disponible</th>
-    <th scope="col" style="width: 10%;">Precio de venta</th>
-    <th scope="col" style="width: 10%;">Inversión</th>
-    <th scope="col" style="width: 10%;">Ingreso</th>
-    <th scope="col" style="width: 10%;">Ganancia</th>
+    <th scope="col" style="width: 10%;">Precio de venta minoritario</th>
+    <th scope="col" style="width: 10%;">Precio de venta mayoritario</th>
     <th scope="col" style="width: 10%;">Unidad de medida</th>
     <th scope="col" style="width: 10%;">Estado</th>
     <th scope="col" style="width: 14%;">Opciones</th>
@@ -47,10 +45,9 @@
             {% endif %}
         </td>
         <td>{{ product.precio_venta }}</td>
+        <td>{{ product.precio_venta_m }}</td>
 
-        <td>{{ product.inversion }}</td>
-        <td>{{ product.ingresos }}</td>
-        <td>{{ product.ganancia }}</td>
+       
         <td>{{ product.unidad_medida }}</td>
         <td>{{ product.activo|yesno:"Activo,Inactivo" }}</td>
 

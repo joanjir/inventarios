@@ -39,10 +39,28 @@
             .toast-message {
             color: black;
             }
+
+            
+
+           
         </style>
         <script>
+            $(document).ready(function() {
+                $('select').select2({
+                    theme: 'bootstrap4' // Or whichever theme you want to use
+                });
+              });
+              
+            
+           
             
         </script>
+        <!-- CSS de Selectize -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css">
+
+        <!-- JS de Selectize -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+
 
         <link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
         <link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>

@@ -17,7 +17,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-header">Administraciones</li>
 
-        <li class="nav-item">
+        <li class="nav-item {% if request.get_full_path == '/administraciones/listarEmpleados/' or request.get_full_path == '/administraciones/listarAlmacenes/' or request.get_full_path == '/administraciones/listarPuntoVentas/' or request.get_full_path == '/administraciones/listarUnidadMedida/' %}{% endif %}">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cog fa-lg"></i>
             <p>
@@ -27,46 +27,41 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{% url 'empleado_list' %}" class="nav-link">
+              <a href="{% url 'empleado_list' %}" class="nav-link {% if request.path == '/administraciones/listarEmpleados/' %}{% endif %}">
                 <i class="fas fa-users nav-icon"></i>
                 <p>Empleados</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{% url "list_almacen" %}" class="nav-link">
+              <a href="{% url 'list_almacen' %}" class="nav-link {% if request.path == '/administraciones/listarAlmacenes/' %}{% endif %}">
                 <i class="fas fa-warehouse nav-icon"></i>
                 <p>Almacenes</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{% url "list_puntvemt" %}" class="nav-link">
+              <a href="{% url 'list_puntvemt' %}" class="nav-link {% if request.path == '/administraciones/listarPuntoVentas/' %}{% endif %}">
                 <i class="fas fa-store nav-icon"></i>
                 <p>Puntos de Ventas</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'listUnidadMedida' %}" class="nav-link">
+              <a href="{% url 'listUnidadMedida' %}" class="nav-link {% if request.path == '/administraciones/listarUnidadMedida/' %}{% endif %}">
                 <i class="fas fa-ruler fa-lg"></i>
                 <p>Unidad de medidas</p>
               </a>
             </li>
           </ul>
         </li>
-        <li class="nav-header">Inventario</li>
+        <li class="nav-header">Inventarios</li>
+        
         <li class="nav-item">
-          <a href="" class="nav-link">
-            <i class="nav-icon fas fa-boxes fa-lg"></i>
-            <p>Inventario</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'listCatalogo' %}" class="nav-link">
+          <a href="{% url 'listCatalogo' %}" class="nav-link {% if request.get_full_path == '/inventarios/listarCategoria/' %}{% endif %}">
             <i class="nav-icon fas fa-list-alt fa-lg"></i>
             <p>Categorías</p>
           </a>
         </li>
-        
-        <li class="nav-item">
+
+        <li class="nav-item {% if request.get_full_path == '/inventarios/listarProducto/' %}{% endif %}">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-tags fa-lg"></i>
             <p>
@@ -76,7 +71,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{% url 'listProducto' %}" class="nav-link">
+              <a href="{% url 'listProducto' %}" class="nav-link {% if request.get_full_path == '/inventarios/listarProducto/' %}{% endif %}">
                 <i class="fas fa-box nav-icon"></i>
                 <p>Productos</p>
               </a>
@@ -89,10 +84,33 @@
             </li>
           </ul>
         </li>
-        <li class="nav-header">Ver</li>
+        <li class="nav-item {% if request.get_full_path == '/inventory/almacen/' %}{% endif %}">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-boxes fa-lg"></i>
+            <p>
+              Inventarios
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'inventoryc' %}" class="nav-link {% if request.get_full_path == '/inventory/almacen/' %}{% endif %}">
+                <i class="fas fa-warehouse nav-icon"></i>
+                <p>Almacenes</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'inventoryvp' %}" class="nav-link">
+                <i class="fas fa-store nav-icon"></i>
+                <p>Puntos de venta</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-header">Entradas y Salidas</li>
 
         <li class="nav-item">
-          <a href="{% url 'list_compra' %}" class="nav-link">
+          <a href="{% url 'list_compra' %}" class="nav-link {% if request.get_full_path == '/listarCompra/' %}{% endif %}">
             <i class="nav-icon fas fa-shopping-bag fa-lg"></i>
             <p>Compras</p>
           </a>

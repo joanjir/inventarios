@@ -187,7 +187,7 @@ $(function () {
 
         // Send the AJAX request
         $.ajax({
-            url: '/inventarios/editar/',
+            url: '/editar/',
             type: 'POST',
             data: parameters,
             processData: false,
@@ -199,7 +199,7 @@ $(function () {
                 // Handle the response from the server
 
                 console.log(response);
-                location.href = '/inventarios/listarCompra/ ';
+                location.href = '/listarCompra/ ';
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -218,7 +218,7 @@ $(function () {
         ajax: {
             delay: 250,
             type: 'POST',
-            url: '/inventarios/buscar_producto/',
+            url: '/buscar_producto/',
             data: function (params) {
                 var queryParameters = {
                     term: params.term,
@@ -285,7 +285,7 @@ $(function () {
 
 
     $.ajax({
-        url: '/inventarios/editar/',
+        url: '/editar/',
         type: 'GET',
         success: function (data) {
             // Imprime los datos recibidos

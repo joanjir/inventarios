@@ -24,7 +24,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-              <a href="">Inicio</a>
+              <a href>Inicio</a>
             </li>
             <li class="breadcrumb-item">
               <a href="{% url 'empleado_list' %}">{{ entity }}</a>
@@ -54,7 +54,6 @@
       </div>
       <div class="card-body">
         {% csrf_token %}
-        <input type="hidden" name="action" value="{{ action }}" />
         <div class="row">
           <div class="col-md-6">
             {{ form.nombre|as_crispy_field }}
@@ -68,12 +67,14 @@
             {{ form.imagen|as_crispy_field }}
             {{ form.direccion|as_crispy_field }}
           </div>
-          <div class="col-md-6">{{ form.puesto|as_crispy_field }}
+          <div class="col-md-6">
+            {{ form.puesto|as_crispy_field }}
             {{ form.fecha_contratacion|as_crispy_field }}
 
             {{ form.tipo_lugar|as_crispy_field }}
-            {{ form.almacenes|as_crispy_field }}
-            {{ form.punto_venta|as_crispy_field }}</div>
+            <div id="almacenFieldsContainer">{{ form.almacenes|as_crispy_field }}</div>
+            <div id="puntoVentaFieldsContainer">{{ form.punto_venta|as_crispy_field }}</div>
+          </div>
         </div>
       </div>
       <div class="card-footer">
@@ -136,8 +137,7 @@
         dateFormat: 'yy-mm-dd',
         changeMonth: true,
         changeYear: true,
-        yearRange: '1900:2500',
-        showButtonPanel: true
+        yearRange: '1900:2500'
       })
     
       // Mostrar u ocultar los campos según el valor seleccionado en tipo_lugar
@@ -145,28 +145,28 @@
         const selectedValue = $(this).val()
     
         if (selectedValue === 'Almacen') {
-          almacenFields.show()
-          puntoVentaFields.hide()
+          $('#almacenFieldsContainer').show()
+          $('#puntoVentaFieldsContainer').hide()
         } else if (selectedValue === 'PuntoVenta') {
-          almacenFields.hide()
-          puntoVentaFields.show()
+          $('#almacenFieldsContainer').hide()
+          $('#puntoVentaFieldsContainer').show()
         } else {
-          almacenFields.hide()
-          puntoVentaFields.hide()
+          $('#almacenFieldsContainer').hide()
+          $('#puntoVentaFieldsContainer').hide()
         }
       })
     
       // Verificar el valor inicial de tipo_lugar al cargar la página
       const initialValue = tipoLugarField.val()
       if (initialValue === 'Almacen') {
-        almacenFields.show()
-        puntoVentaFields.hide()
+        $('#almacenFieldsContainer').show()
+        $('#puntoVentaFieldsContainer').hide()
       } else if (initialValue === 'PuntoVenta') {
-        almacenFields.hide()
-        puntoVentaFields.show()
+        $('#almacenFieldsContainer').hide()
+        $('#puntoVentaFieldsContainer').show()
       } else {
-        almacenFields.hide()
-        puntoVentaFields.hide()
+        $('#almacenFieldsContainer').hide()
+        $('#puntoVentaFieldsContainer').hide()
       }
     })
   </script>

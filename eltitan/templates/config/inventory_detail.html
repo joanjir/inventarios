@@ -1,0 +1,85 @@
+{% extends 'base/list.html' %}
+{% load static %}
+{% block head_list %}
+  <script src="{% static 'js/inventalmacen.js' %}"></script>
+{% endblock %}
+
+{% block title_list %}
+  Lista de categorías de productos{% if messages %}
+
+  {% endif %}
+{% endblock %}
+
+{% block buttons_list %}
+
+{% endblock %}
+
+{% block columns %}
+  <tr>
+    <th scope="col" style="width: 10%;">Codigo</th>
+    <th scope="col" style="width: 50%;">Producto</th>
+    <th scope="col" style="width: 10%;">Categoria</th>
+    <th scope="col" style="width: 15%;">Cantidad</th>
+    <th scope="col" style="width: 20%;">Opciones</th>
+  </tr>
+{% endblock %}
+
+{% block rows %}
+  
+  <div id="myModal" class="modal fade" tabindex="-1" role="dialog" style="overflow:hidden;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Mover inventario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form id="moveForm" method="post">
+            {% csrf_token %}
+            <!-- Campos del formulario -->
+            <div class="form-group">
+              <label for="cantidad">Cantidad:</label>
+              <input type="number" id="cantidad" name="cantidad" class="form-control" min="0" />
+              <span id="cantidadError" style="color:red;"></span>
+            </div>
+            <div class="form-group">
+              <label for="destino">Destino:</label>
+              <select id="destino" name="destino" class="form-control">
+                {% for origin in origins_destinies %}
+                  <option value="{{ origin.id }}">{{ origin }}</option>
+                {% endfor %}
+              </select>
+              <span id="destinoError" style="color:red;"></span>
+            </div>
+            <input type="hidden" id="inventario_id" name="inventario_id" />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" form="moveForm" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% for item in inventory %}
+    <tr>
+      <td scope="col">{{ item.producto.code }}</td>
+      <td scope="col">{{ item.producto.name }}</td>
+      <td scope="col">{{ item.producto.cat }}</td>
+      <td scope="col" id="quantity-{{ item.id }}">{{ item.cantidad }}</td>
+
+      <td scope="col" style="width: 10%;">
+        <div class="row">
+          <div class="col-sm-6 col-12 mb-1">
+            <button type="button" class="rounded btn btn-info btn-flat eliminar-btn btn-sm moverBtn" title="Move Record" data-inventario-id="{{ item.id }}" data-cantidad-existente="{{ item.cantidad }}"><i class="fas fa-truck-moving fa-2x"></i></button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

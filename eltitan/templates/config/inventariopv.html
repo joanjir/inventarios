@@ -1,0 +1,71 @@
+{% extends 'base/listEmpleados.html' %}
+{% load static %}
+
+{% block card %}
+<div class="row p-3 m-1 d-flex flex-row flex-nowrap">
+  {% if page_obj %}
+  
+   {% for details in page_obj.object_list %}
+   <div class="col-12 col-sm-4 col-md-4 d-flex align-items-stretch flex-column pb-3 pt-3 flex-fill">
+   <div class="small-box {% if details.activo %}bg-success{% else %}bg-danger{% endif %}" style="{% if not details.activo %}pointer-events: none;{% endif %}">
+    <div class="inner" style="height: 130px; overflow: hidden;">
+      <h5>Almacen: {{ details.name }}</h5>
+      <ul class="ml-4 mb-0 fa-ul">
+        <li class="small">
+          <span class="fa-li"><i class="fas fa-building"></i></span> Ubicación: {{ details.ubicacion }}
+        </li>
+        <li class="small">
+            <span class="fa-li"><i class="fas fa-{% if details.activo %}toggle-on{% else %}toggle-off{% endif %}" aria-hidden="true"></i></span> Estado: {% if details.activo == True %}Activo {% else %}Inactivo{% endif %} 
+        </li> 
+      </ul>
+    </div>
+    <div class="icon">
+      <i class="fas fa-store fa-x2"></i>
+      
+    </div>
+    <a href="{% url 'inventory_detail_store' store_id=details.id %}" class="small-box-footer">Inventario <i class="fas fa-arrow-circle-right"></i></a>   </div>
+   </div>
+   {% endfor %}
+   {% else %}
+   <div class="col-lg-12 col-sm-12 col-md-12 d-flex align-items-stretch flex-column">
+     <p class="text-center">Ningún dato disponible.</p>
+   </div>
+  {% endif %}
+
+  </div>
+  
+
+  
+{% endblock %}
+
+{% block cardfooter %}
+ <!-- Agrega la paginación -->
+ {% if page_obj %}
+ <div class="pagination justify-content-center">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+      </li>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <li class="page-item active">
+          <span class="page-link">{{ num }}</span>
+        </li>
+      {% else %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+      </li>
+    {% endif %}
+  </ul>
+ </div>
+ {% endif %}
+
+{% endblock %}

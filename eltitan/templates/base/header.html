@@ -8,10 +8,8 @@
     </li>
   </ul>
   <!-- Right navbar links -->
-  <!-- Right navbar links -->
   <ul class="ml-auto navbar-nav">
     <!-- Dropdown Menu -->
-    {% if request.user.is_authenticated %}
       <li class="nav-item dropdown user-menu">
         <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <img src="" class="user-image img-circle elevation-2" alt="{{ request.user.username }}" />
@@ -23,7 +21,6 @@
             <img src="" class="img-circle elevation-2" alt="{{ request.user.username }}" />
 
             <p>{{ request.user.username }}</p>
-            
           </li>
 
           <!-- Menu Footer -->
@@ -32,6 +29,5 @@
           </li>
         </ul>
       </li>
-    {% endif %}
   </ul>
 </nav>

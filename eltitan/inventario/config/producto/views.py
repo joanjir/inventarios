@@ -9,38 +9,39 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 
 
-
-
-from inventario.models import Categoria, Producto, Compra
+from inventario.models import Categoria, Producto, Compra, Almacen
 from inventario.config.producto.forms import ProductForm
 
 # Create your views here.
 
+
 @login_required(login_url='login', redirect_field_name='login')
 def listProducto(request):
-    prod= Producto.objects.all()
+    prod = Producto.objects.all()
     title = 'Listado de productos'
-    return render(request,'config/listProducto.html', {'prods' : prod, 'title': title})
+    return render(request, 'config/listProducto.html', {'prods': prod, 'title': title})
+
 
 @login_required(login_url='login', redirect_field_name='login')
 def createProducto(request):
+    context = {}  # Inicializar context como un diccionario vacío
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
             message = "Producto guardada correctamente."
             messages.success(request, message, extra_tags="create")
-            return redirect('listProducto') # Reemplaza 'product_list' con la URL de tu página de éxito
+            # Reemplaza 'product_list' con la URL de tu página de éxito
+            return redirect('listProducto')
     else:
         form = ProductForm()
         context = {
-           'form': form,
-           'title': 'Registrar un producto',
-           'entity': 'Listado de productos',
-           'action': 'add'
-       }
+            'form': form,
+            'title': 'Registrar un producto',
+            'entity': 'Listado de productos',
+            'action': 'add'
+        }
     return render(request, 'config/createProducto.html', context)
-
 
 
 @login_required(login_url='login', redirect_field_name='login')
@@ -56,15 +57,15 @@ def editProducto(request, pk):
                 messages.success(request, message, extra_tags="edit")
             except ValidationError as e:
                 messages.error(request, e.messages[0], extra_tags="error")
-              
+
             return HttpResponseRedirect(reverse('listProducto'))
     else:
         form = ProductForm(instance=product)
     context = {
-            'form': form,
-            'title': 'Edición del Producto',
-            'entity': 'Listado de productos',
-            'action': 'edit',
-       }
+        'form': form,
+        'title': 'Edición del Producto',
+        'entity': 'Listado de productos',
+        'action': 'edit',
+    }
 
     return render(request, 'config/editProducto.html', context)

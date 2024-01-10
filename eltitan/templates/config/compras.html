@@ -45,34 +45,45 @@
 
 {% block content %}
 
+
+
+<!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="editForm">
-          <div class="form-group">
-            <label for="editQty"> Cantidad de productos: </label>
-            <input type="number" id="editQty" class="form-control" placeholder="Ingrese la cantidad">
-          </div>
-          <div class="form-group">
-            <label for="editPrice"> Precio de compra: </label>
-            <input type="number" id="editPrice" class="form-control" placeholder="Ingrese el precio">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="saveBtn">Aceptar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <form id="editForm" class="needs-validation" novalidate>
+         <div class="form-group">
+           <label for="editQty"> Cantidad de productos: </label>
+           <input type="number" id="editQty" class="form-control" placeholder="Ingrese la cantidad" required min="1">
+           <div class="invalid-feedback">
+             Por favor ingrese solo números mayores que 0.
+           </div>
+         </div>
+         <div class="form-group">
+           <label for="editPrice"> Precio de compra: </label>
+           <input type="number" id="editPrice" class="form-control" placeholder="Ingrese el precio" required min="1">
+           <div class="invalid-feedback">
+             Por favor ingrese solo números mayores que 0.
+           </div>
+         </div>
+       </form>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-primary" id="saveBtn">Aceptar</button>
+       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+     </div>
+   </div>
   </div>
  </div>
+ 
+ 
  
   <form method="post" action="add">
     <div class="card card-primary">
@@ -100,24 +111,26 @@
 
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label>No. Factura:</label>
-                      <input type="text" id="numFactura" class="form-control">
+                        <label>No. Factura:</label>
+                        <input type="text" id="numFactura" class="form-control" oninput="clearError('numFacturaError')">
+                        <div id="numFacturaError" class="invalid-feedback"></div>
                     </div>
-                  </div>
-
-                  <div class="col-md-3">
+                 </div>
+                 <div class="col-md-3">
                     <div class="form-group">
-                      <label>Fecha factura:</label>
-                      <input type="date" id="fechaFactura" class="form-control">
-                   </div>
-                  </div>
-
-                  <div class="col-md-3">
+                        <label>Fecha factura:</label>
+                        <input type="date" id="fechaFactura" class="form-control" oninput="clearError('fechaFacturaError')">
+                        <div id="fechaFacturaError" class="invalid-feedback"></div>
+                    </div>
+                 </div>
+                 <div class="col-md-3">
                     <div class="form-group">
-                      <label>Fecha de compra:</label>
-                      <input type="date" id="fechaCompra" class="form-control">
-                   </div>
-                  </div>
+                        <label>Fecha de compra:</label>
+                        <input type="date" id="fechaCompra" class="form-control" oninput="clearError('fechaCompraError')">
+                        <div id="fechaCompraError" class="invalid-feedback"></div>
+                    </div>
+                 </div>
+                 
 
                   
                 </div>
@@ -131,26 +144,28 @@
               </div>
               <div class="card-body">
                 <div class="row">
+                  
+                 
+
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label>Buscar producto:</label>
-                      <div class="input-group">
-                        <select class="form-control select2" id="productSearch" name="search"></select>
-                      </div>
+                        <label>Buscar producto:</label>
+                        <div class="input-group">
+                            <select class="form-control select2" id="productSearch" name="search"></select>
+                            <div id="productSearchError" class="invalid-feedback"></div>
+                        </div>
                     </div>
-                  </div>
-                  
-                  <div class="col-md-3">
+                 </div>
+                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Cantidad de productos:</label>
                         <div class="input-icon">
                             <input type="number" id ='productQuantity' class="form-control" min="0" placeholder="Ingresa la cantidad" />
+                            <div id="productQuantityError" class="invalid-feedback"></div>
                         </div>
                     </div>
                  </div>
-                 
-
-                  <div class="col-md-3">
+                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Precio de compra:</label>
                         <div class="input-group">
@@ -161,9 +176,11 @@
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>
+                            <div id="productPriceError" class="invalid-feedback"></div>
                         </div>
                     </div>
-                  </div>
+                 </div>
+                 
 
                   <div class="col-md-2" style=" padding-top:32px; ">
                     <button type="button" id="agregar" class="btn btn-primary btn-flat"><i class="fas fa-cart-plus fa-lg"></i> Agregar</button>
